@@ -11,7 +11,8 @@ public class MazeGameServerApplication {
         Player player = new Player("name2", "pw");
         SpringApplication.run(MazeGameServerApplication.class, args);
         RESTClient.attemptLogin(player);
-
+        System.out.println(player.getAuthenticationToken());
+        System.out.println(RESTClient.getAllPlayers(player.getAuthenticationToken()));
     }
 
 }
