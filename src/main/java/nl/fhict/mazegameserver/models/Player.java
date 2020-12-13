@@ -9,7 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class Player {
     @Getter @Setter
-    private Integer id;
+    private Integer id = 0;
     @Getter @Setter
     private String username;
     @Getter @Setter
