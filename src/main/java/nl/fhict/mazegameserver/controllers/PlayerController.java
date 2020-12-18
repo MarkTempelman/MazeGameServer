@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 
 @RequiredArgsConstructor
 @Controller
-@CrossOrigin(origins = "*", allowedHeaders = "*")
+@CrossOrigin(origins = "http://localhost:4200")
 public class PlayerController {
     private final SimpMessagingTemplate template;
     private final PlayerService playerService;
