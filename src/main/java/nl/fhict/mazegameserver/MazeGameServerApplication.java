@@ -11,11 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @SpringBootApplication
 public class MazeGameServerApplication {
     public static void main(String[] args) {
-        Player player = new Player("name2", "pw");
         SpringApplication.run(MazeGameServerApplication.class, args);
-        RESTClient.attemptLogin(player);
-        System.out.println(player.getAuthenticationToken());
-        System.out.println(RESTClient.getAllPlayers(player.getAuthenticationToken()));
     }
 
     @Bean

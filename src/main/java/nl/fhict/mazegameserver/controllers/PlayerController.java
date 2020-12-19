@@ -16,18 +16,13 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 public class PlayerController {
     private final SimpMessagingTemplate template;
     private final PlayerService playerService;
+    private static final String messagePrefix = "/message/";
 
     @MessageMapping("/login")
     public void login(Message messageIn){
         Player player = new Player(messageIn.username, messageIn.password);
         boolean isSuccessful = playerService.attemptLogin(player);
         Message messageOut = new Message(MessageType.LoginResponse, isSuccessful, player.getId());
-        template.convertAndSend(messageIn.sender, messageOut);
-    }
-
-    @MessageMapping("/send/message")
-    public void sendMessage(String message){
-        System.out.println("Sending message: " + message);
-        this.template.convertAndSend("/message", message);
+        template.convertAndSend(messagePrefix + messageIn.sender, messageOut);
     }
 }
