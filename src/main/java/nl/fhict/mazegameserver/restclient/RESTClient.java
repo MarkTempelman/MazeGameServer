@@ -36,6 +36,15 @@ public class RESTClient {
         return false;
     }
 
+    public static void registerPlayer(Player player){
+        JSONObject userJsonObject = new JSONObject();
+        userJsonObject.put("username", player.getUsername());
+        userJsonObject.put("password", player.getPassword());
+
+        HttpEntity<String> request = new HttpEntity<>(userJsonObject.toString(), getHttpHeaders());
+        ResponseEntity<String> response = restTemplate.postForEntity(baseURL+"all/user", request, String.class);
+    }
+
     public static Player getCurrentPlayer(String token){
         HttpEntity request = new HttpEntity(getHttpHeaders(token));
 

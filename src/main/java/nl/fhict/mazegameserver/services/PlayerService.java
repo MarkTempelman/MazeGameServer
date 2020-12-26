@@ -19,4 +19,8 @@ public class PlayerService {
         }
         return false;
     }
+
+    public void registerPlayer(Player player){
+        RESTClient.registerPlayer(player);
+    }
 }
