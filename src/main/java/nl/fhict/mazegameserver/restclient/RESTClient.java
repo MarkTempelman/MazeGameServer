@@ -76,4 +76,3 @@ public class RESTClient {
         return headers;
     }
 }
-//https://www.baeldung.com/rest-template

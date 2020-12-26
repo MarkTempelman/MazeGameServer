@@ -23,4 +23,8 @@ public class PlayerService {
     public void registerPlayer(Player player){
         RESTClient.registerPlayer(player);
     }
+
+    public Player getPlayerById(int id){
+        return players.stream().filter(p -> p.getId() == id).findFirst().orElse(null);
+    }
 }
