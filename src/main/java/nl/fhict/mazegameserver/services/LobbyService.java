@@ -13,23 +13,27 @@ import java.util.ArrayList;
 @RequiredArgsConstructor
 public class LobbyService {
     private ArrayList<Lobby> lobbies = new ArrayList<>();
-    private static MessagingService messagingService;
+    private final MessagingService messagingService;
 
     public void joinRandomLobby(Player player){
         Lobby lobby = findRandomAvailableLobby();
-        if(lobby == null){
-            lobby = new Lobby();
-            lobbies.add(lobby);
-        }
         lobby.addPlayer(player);
-        sendLobbyPlayerUpdate(lobby);
+        sendLobbyPlayerUpdate(lobby, player);
     }
 
     public Lobby findRandomAvailableLobby(){
+        if(lobbies.size() == 0){
+            lobbies.add(new Lobby(getNextLobbyId()));
+        }
         return lobbies.stream().filter(l -> l.doesLobbyHaveSpace()).findAny().orElse(null);
     }
 
-    public void sendLobbyPlayerUpdate(Lobby lobby){
-        messagingService.sendMessageToPlayers(new Message(MessageType.PlayerJoined, lobby.getPlayers()), lobby.getPlayers());
+    public void sendLobbyPlayerUpdate(Lobby lobby, Player player){
+        messagingService.sendMessageToPlayers(new Message(MessageType.PlayerJoined, player), lobby.getOtherPlayers(player.getId()));
+        messagingService.sendMessageToPlayer(new Message(MessageType.JoinedLobby, lobby.getLobbyId(), lobby.getPlayers()), player);
+    }
+
+    private int getNextLobbyId(){
+        return lobbies.stream().mapToInt(l -> l.getLobbyId()).max().orElse(0) + 1;
     }
 }

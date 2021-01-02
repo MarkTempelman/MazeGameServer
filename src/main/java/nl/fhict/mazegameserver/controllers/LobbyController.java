@@ -22,7 +22,7 @@ public class LobbyController {
 
     @MessageMapping("/join/random")
     public void joinRandomLobby(Message messageIn){
-        Player player = playerService.getPlayerById(messageIn.playerId);
+        Player player = playerService.getPlayerById(Integer.parseInt(messageIn.sender));
         lobbyService.joinRandomLobby(player);
     }
 }

@@ -21,6 +21,9 @@ public class MessagingService {
     }
 
     public void sendMessageToPlayer(Message message, Player player){
+        message.removeSensitiveInformation();
         template.convertAndSend(messagePrefix + player.getId(), message);
     }
+
+
 }

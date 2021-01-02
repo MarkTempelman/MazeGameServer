@@ -7,7 +7,7 @@ import lombok.Setter;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 @NoArgsConstructor
-public class Player {
+public class Player implements Cloneable{
     @Getter @Setter
     private Integer id = 0;
     @Getter @Setter
@@ -20,5 +20,28 @@ public class Player {
     public Player(String username, String password){
         this.username = username;
         this.password = password;
+    }
+
+    public Player(String username){
+        this.username = username;
+    }
+
+    public void removeSensitiveInformation(){
+        id = null;
+        password = null;
+        authenticationToken = null;
+    }
+
+    protected Object clone() throws CloneNotSupportedException{
+        return super.clone();
+    }
+
+    public Player clonePlayer(){
+        try{
+            return (Player)clone();
+        } catch (CloneNotSupportedException e){
+            System.out.println(e);
+            return null;
+        }
     }
 }

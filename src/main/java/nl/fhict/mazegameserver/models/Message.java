@@ -13,7 +13,9 @@ public class Message {
     public String username;
     public String password;
     public boolean isSuccessful;
+    public int lobbyId;
     public ArrayList<Player> players;
+    public Player player;
 
     public Message(MessageType messageType, boolean isSuccessful, int playerId) {
         this.isSuccessful = isSuccessful;
@@ -21,8 +23,30 @@ public class Message {
         this.playerId = playerId;
     }
 
-    public Message(MessageType messageType, ArrayList<Player> players){
+    public Message(MessageType messageType, Player player) {
         this.messageType = messageType;
+        this.player = player;
+    }
+
+    public Message(MessageType messageType, int lobbyId, ArrayList<Player> players) {
+        this.messageType = messageType;
+        this.lobbyId = lobbyId;
         this.players = players;
+    }
+
+    public void removeSensitiveInformation(){
+        if(players != null){
+            ArrayList<Player> currentPlayers = players;
+            players = new ArrayList<>();
+            for (Player player:currentPlayers) {
+                Player clone = player.clonePlayer();
+                clone.removeSensitiveInformation();
+                players.add(clone);
+            }
+        }
+        if (player != null) {
+            player = player.clonePlayer();
+            player.removeSensitiveInformation();
+        }
     }
 }
