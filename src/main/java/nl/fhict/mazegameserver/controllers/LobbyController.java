@@ -26,6 +26,14 @@ public class LobbyController {
         sendLobbyPlayerUpdate(lobbyService.joinRandomLobby(player), player);
     }
 
+    @MessageMapping("/start")
+    public void startGame(Message messageIn){
+        Lobby lobby = lobbyService.tryStartGame(messageIn.lobbyId);
+        if(lobby != null){
+            messagingService.sendMessageToPlayers(new Message(MessageType.StartGame, lobby.getWalls()), lobby.getPlayers());
+        }
+    }
+
     private void sendLobbyPlayerUpdate(Lobby lobby, Player player){
         messagingService.sendMessageToPlayers(new Message(MessageType.PlayerJoined, player), lobby.getOtherPlayers(player.getId()));
         messagingService.sendMessageToPlayer(new Message(MessageType.JoinedLobby, lobby.getLobbyId(), lobby.getPlayers()), player);

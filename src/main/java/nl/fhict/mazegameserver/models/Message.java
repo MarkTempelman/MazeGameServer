@@ -16,6 +16,7 @@ public class Message {
     public int lobbyId;
     public ArrayList<Player> players;
     public Player player;
+    public Wall[][] walls;
 
     public Message(MessageType messageType, boolean isSuccessful, int playerId) {
         this.isSuccessful = isSuccessful;
@@ -32,6 +33,11 @@ public class Message {
         this.messageType = messageType;
         this.lobbyId = lobbyId;
         this.players = players;
+    }
+
+    public Message(MessageType messageType, Wall[][] walls) {
+        this.messageType = messageType;
+        this.walls = walls;
     }
 
     public void removeSensitiveInformation(){

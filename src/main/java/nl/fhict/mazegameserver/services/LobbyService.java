@@ -32,5 +32,18 @@ public class LobbyService {
         return lobbies.stream().mapToInt(l -> l.getLobbyId()).max().orElse(0) + 1;
     }
 
+    public Lobby tryStartGame(int lobbyId) {
+        Lobby lobby = getLobbyById(lobbyId);
+        if(lobby.canGameStart()){
+            lobby.start();
+            return lobby;
+        }
+        return null;
+    }
+
+    private Lobby getLobbyById(int lobbyId){
+        return lobbies.stream().filter(lobby -> lobby.getLobbyId() == lobbyId).findFirst().orElse(null);
+    }
+
     //TODO: check if player is already in a lobby
 }

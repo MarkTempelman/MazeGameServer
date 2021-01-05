@@ -4,4 +4,5 @@ public enum MessageType {
     LoginResponse,
     PlayerJoined,
     JoinedLobby,
+    StartGame,
 }
