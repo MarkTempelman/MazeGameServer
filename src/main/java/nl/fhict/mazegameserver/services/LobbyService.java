@@ -31,4 +31,6 @@ public class LobbyService {
     private int getNextLobbyId(){
         return lobbies.stream().mapToInt(l -> l.getLobbyId()).max().orElse(0) + 1;
     }
+
+    //TODO: check if player is already in a lobby
 }
