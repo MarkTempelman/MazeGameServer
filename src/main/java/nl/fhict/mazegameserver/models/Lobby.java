@@ -1,7 +1,10 @@
 package nl.fhict.mazegameserver.models;
 
 import lombok.Getter;
+import nl.fhict.mazegameserver.enums.Direction;
+import nl.fhict.mazegameserver.enums.MessageType;
 import nl.fhict.mazegameserver.helpers.MapGenerator;
+import nl.fhict.mazegameserver.helpers.MovementLogic;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -44,6 +47,32 @@ public class Lobby {
     public void start(){
         generateWalls();
         isStarted = true;
+        for (Player player: players) {
+            player.setPosition(new Position(1,1));
+        }
+    }
+
+    public boolean doesLobbyContainPlayer(int playerId){
+        Player player = getPlayerById(playerId);
+        if(player != null){
+            return true;
+        }
+        return false;
+    }
+
+    public Message tryMovePlayer(int playerId, Direction direction){
+        Player player = getPlayerById(playerId);
+        if(player == null || !isStarted){
+            return null;
+        }
+        if(MovementLogic.voidTryMove(player, direction, this)){
+            return new Message(MessageType.MovementUpdate, players);
+        }
+        return null;
+    }
+
+    private Player getPlayerById (int playerId){
+        return players.stream().filter(player -> player.getId() == playerId).findFirst().orElse(null);
     }
 
     private void generateWalls(){

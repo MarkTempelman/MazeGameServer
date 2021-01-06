@@ -1,6 +1,7 @@
 package nl.fhict.mazegameserver.models;
 
 import lombok.NoArgsConstructor;
+import nl.fhict.mazegameserver.enums.Direction;
 import nl.fhict.mazegameserver.enums.MessageType;
 
 import java.util.ArrayList;
@@ -17,6 +18,7 @@ public class Message {
     public ArrayList<Player> players;
     public Player player;
     public Wall[][] walls;
+    public Direction direction;
 
     public Message(MessageType messageType, boolean isSuccessful, int playerId) {
         this.isSuccessful = isSuccessful;
@@ -35,9 +37,15 @@ public class Message {
         this.players = players;
     }
 
-    public Message(MessageType messageType, Wall[][] walls) {
+    public Message(MessageType messageType, Wall[][] walls, ArrayList<Player> players) {
         this.messageType = messageType;
         this.walls = walls;
+        this.players = players;
+    }
+
+    public Message(MessageType messageType, ArrayList<Player> players) {
+        this.messageType = messageType;
+        this.players = players;
     }
 
     public void removeSensitiveInformation(){

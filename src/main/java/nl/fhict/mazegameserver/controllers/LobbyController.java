@@ -30,7 +30,15 @@ public class LobbyController {
     public void startGame(Message messageIn){
         Lobby lobby = lobbyService.tryStartGame(messageIn.lobbyId);
         if(lobby != null){
-            messagingService.sendMessageToPlayers(new Message(MessageType.StartGame, lobby.getWalls()), lobby.getPlayers());
+            messagingService.sendMessageToPlayers(new Message(MessageType.StartGame, lobby.getWalls(), lobby.getPlayers()), lobby.getPlayers());
+        }
+    }
+
+    @MessageMapping("move")
+    public void movePlayer(Message messageIn){
+        Message messageOut = lobbyService.tryMovePlayer(messageIn.lobbyId, messageIn.playerId, messageIn.direction);
+        if(messageOut != null){
+            messagingService.sendMessageToPlayers(messageOut, lobbyService.getLobbyById(messageIn.lobbyId).getPlayers());
         }
     }
 

@@ -1,7 +1,9 @@
 package nl.fhict.mazegameserver.services;
 
 import lombok.RequiredArgsConstructor;
+import nl.fhict.mazegameserver.enums.Direction;
 import nl.fhict.mazegameserver.models.Lobby;
+import nl.fhict.mazegameserver.models.Message;
 import nl.fhict.mazegameserver.models.Player;
 import org.springframework.stereotype.Service;
 
@@ -41,7 +43,16 @@ public class LobbyService {
         return null;
     }
 
-    private Lobby getLobbyById(int lobbyId){
+    public Message tryMovePlayer(int lobbyId, int playerId, Direction direction){
+        Lobby lobby = getLobbyById(lobbyId);
+        // TODO: 06/01/2021 return error message instead of null
+        if(!lobby.doesLobbyContainPlayer(playerId)){
+            return null;
+        }
+        return lobby.tryMovePlayer(playerId, direction);
+    }
+
+    public Lobby getLobbyById(int lobbyId){
         return lobbies.stream().filter(lobby -> lobby.getLobbyId() == lobbyId).findFirst().orElse(null);
     }
 
