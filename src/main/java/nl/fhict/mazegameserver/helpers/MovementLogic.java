@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 
 public class MovementLogic {
 
-    public static boolean voidTryMove(Player player, Direction direction, Lobby lobby){
+    public static boolean tryMove(Player player, Direction direction, Lobby lobby){
         Position nextPosition = getNextPosition(player.getPosition(), direction);
 
         if(isPathBlocked(nextPosition, lobby.getWalls())){

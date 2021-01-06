@@ -7,7 +7,6 @@ import nl.fhict.mazegameserver.helpers.MapGenerator;
 import nl.fhict.mazegameserver.helpers.MovementLogic;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class Lobby {
@@ -65,7 +64,7 @@ public class Lobby {
         if(player == null || !isStarted){
             return null;
         }
-        if(MovementLogic.voidTryMove(player, direction, this)){
+        if(MovementLogic.tryMove(player, direction, this)){
             return new Message(MessageType.MovementUpdate, players);
         }
         return null;

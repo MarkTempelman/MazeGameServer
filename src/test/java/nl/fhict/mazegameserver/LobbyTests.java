@@ -26,5 +26,16 @@ public class LobbyTests {
     public void TestJoinLobbyWhenNoneExist(){
         Lobby lobby = lobbyService.joinRandomLobby(player);
         assertEquals(lobby.getLobbyId(), 1);
+        assertEquals(lobby.getPlayers().size(), 1);
+    }
+
+    @Test
+    public void TestJoinLobbyWhenLobbyWithSpaceExists(){
+        Player player2 = new Player();
+        player2.setId(2);
+        lobbyService.joinRandomLobby(player);
+        Lobby lobby =lobbyService.joinRandomLobby(player2);
+        assertEquals(lobby.getLobbyId(), 1);
+        assertEquals(lobby.getPlayers().size(), 2);
     }
 }
