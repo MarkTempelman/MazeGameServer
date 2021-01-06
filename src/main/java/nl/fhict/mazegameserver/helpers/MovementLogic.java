@@ -2,9 +2,12 @@ package nl.fhict.mazegameserver.helpers;
 
 import nl.fhict.mazegameserver.enums.Direction;
 import nl.fhict.mazegameserver.models.*;
-import org.springframework.stereotype.Service;
 
 public class MovementLogic {
+
+    private MovementLogic(){
+
+    }
 
     public static boolean tryMove(Player player, Direction direction, Lobby lobby){
         Position nextPosition = getNextPosition(player.getPosition(), direction);

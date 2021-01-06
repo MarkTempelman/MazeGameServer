@@ -70,7 +70,7 @@ public class Lobby {
         return null;
     }
 
-    private Player getPlayerById (int playerId){
+    public Player getPlayerById (int playerId){
         return players.stream().filter(player -> player.getId() == playerId).findFirst().orElse(null);
     }
 

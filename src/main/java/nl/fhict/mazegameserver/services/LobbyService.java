@@ -17,7 +17,8 @@ public class LobbyService {
     public Lobby joinRandomLobby(Player player){
         Lobby lobby = findRandomAvailableLobby();
         if(lobby == null){
-            lobbies.add(new Lobby(getNextLobbyId()));
+            lobby = new Lobby(getNextLobbyId());
+            lobbies.add(lobby);
         }
         lobby.addPlayer(player);
         return lobby;
