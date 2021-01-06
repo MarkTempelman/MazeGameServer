@@ -53,11 +53,18 @@ public class LobbyTests {
     }
 
     @Test
+    public void TestTryStartGameWhenPossible(){
+        lobbyService.joinRandomLobby(player);
+        lobbyService.joinRandomLobby(player2);
+        Lobby lobby = lobbyService.tryStartGame(1);
+        assertTrue(lobby.isStarted());
+    }
+
+    @Test
     public void TestTryMovePlayerWhenMovementPossible(){
-        Lobby lobby = new Lobby(1);
-        lobby.addPlayer(player);
-        lobby.addPlayer(player2);
-        lobby.start();
+        lobbyService.joinRandomLobby(player);
+        lobbyService.joinRandomLobby(player2);
+        Lobby lobby = lobbyService.tryStartGame(1);
         Message message = lobby.tryMovePlayer(1, Direction.Down);
         assertNotEquals(null, message);
         assertEquals(2, lobby.getPlayerById(1).getPosition().getY());

@@ -21,6 +21,7 @@ public class Lobby {
     @Getter
     private Wall[][] walls;
 
+    @Getter
     private boolean isStarted = false;
 
     public Lobby(int lobbyId){
