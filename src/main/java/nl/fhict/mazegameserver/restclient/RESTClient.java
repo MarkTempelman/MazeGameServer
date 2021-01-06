@@ -13,12 +13,13 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 
+@Service
 public class RESTClient {
 
     private static final RestTemplate restTemplate = new RestTemplate();
     private static final String baseURL = "http://localhost:8080/";
 
-    public static boolean attemptLogin(Player player){
+    public boolean attemptLogin(Player player){
         JSONObject userJsonObject = new JSONObject();
         userJsonObject.put("username", player.getUsername());
         userJsonObject.put("password", player.getPassword());
@@ -36,7 +37,7 @@ public class RESTClient {
         return false;
     }
 
-    public static void registerPlayer(Player player){
+    public void registerPlayer(Player player){
         JSONObject userJsonObject = new JSONObject();
         userJsonObject.put("username", player.getUsername());
         userJsonObject.put("password", player.getPassword());
@@ -45,14 +46,14 @@ public class RESTClient {
         ResponseEntity<String> response = restTemplate.postForEntity(baseURL+"all/user", request, String.class);
     }
 
-    public static Player getCurrentPlayer(String token){
+    public Player getCurrentPlayer(String token){
         HttpEntity request = new HttpEntity(getHttpHeaders(token));
 
         ResponseEntity<Player> response = restTemplate.exchange(baseURL+"member/current", HttpMethod.GET, request, Player.class);
         return response.getBody();
     }
 
-    public static ArrayList<Player> getAllPlayers(String token){
+    public ArrayList<Player> getAllPlayers(String token){
         ArrayList<Player> players = new ArrayList<>();
 
         HttpEntity request = new HttpEntity(getHttpHeaders(token));
@@ -63,14 +64,14 @@ public class RESTClient {
         return players;
     }
 
-    private static HttpHeaders getHttpHeaders(String token){
+    private HttpHeaders getHttpHeaders(String token){
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         headers.setBearerAuth(token);
         return headers;
     }
 
-    private static HttpHeaders getHttpHeaders(){
+    private HttpHeaders getHttpHeaders(){
         HttpHeaders headers = new HttpHeaders();
         headers.setContentType(MediaType.APPLICATION_JSON);
         return headers;

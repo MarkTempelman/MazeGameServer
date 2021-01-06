@@ -1,19 +1,24 @@
 package nl.fhict.mazegameserver.services;
 
 import lombok.Getter;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import nl.fhict.mazegameserver.models.Player;
 import nl.fhict.mazegameserver.restclient.RESTClient;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 
 @Service
+@RequiredArgsConstructor
 public class PlayerService {
     private static ArrayList<Player> players = new ArrayList<>();
+    private final RESTClient restClient;
 
     public boolean attemptLogin(Player player){
-        if(RESTClient.attemptLogin(player)){
-            player.setId(RESTClient.getCurrentPlayer(player.getAuthenticationToken()).getId());
+        if(restClient.attemptLogin(player)){
+            player.setId(restClient.getCurrentPlayer(player.getAuthenticationToken()).getId());
             addPlayerToPlayers(player);
             return true;
         }
@@ -21,7 +26,7 @@ public class PlayerService {
     }
 
     public void registerPlayer(Player player){
-        RESTClient.registerPlayer(player);
+        restClient.registerPlayer(player);
     }
 
     public Player getPlayerById(int id){
