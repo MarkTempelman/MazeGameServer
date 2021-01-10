@@ -18,6 +18,8 @@ public class Player implements Cloneable{
     private String authenticationToken;
     @Getter @Setter
     private Position position;
+    @Getter @Setter
+    private boolean isFinished = false;
 
     public Player(String username, String password){
         this.username = username;

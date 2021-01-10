@@ -37,9 +37,9 @@ public class LobbyController {
     @MessageMapping("move")
     public void movePlayer(Message messageIn){
         Message messageOut = lobbyService.tryMovePlayer(messageIn.lobbyId, messageIn.playerId, messageIn.direction);
-        if(messageOut != null){
-            messagingService.sendMessageToPlayers(messageOut, lobbyService.getLobbyById(messageIn.lobbyId).getPlayers());
-        }
+        if(messageOut == null)
+            return;
+        messagingService.sendMessageToPlayers(messageOut, lobbyService.getLobbyById(messageIn.lobbyId).getPlayers());
     }
 
     private void sendLobbyPlayerUpdate(Lobby lobby, Player player){

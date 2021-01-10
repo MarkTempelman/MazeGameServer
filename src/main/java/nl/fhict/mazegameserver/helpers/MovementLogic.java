@@ -13,9 +13,11 @@ public class MovementLogic {
     public static boolean tryMove(Player player, Direction direction, Lobby lobby){
         Position nextPosition = getNextPosition(player.getPosition(), direction);
 
-        if(isPathBlocked(nextPosition, lobby.getTiles())){
+        if(isPositionOfType(nextPosition, lobby.getTiles(), TileType.Wall)){
             return false;
         }
+        if(isPositionOfType(nextPosition, lobby.getTiles(), TileType.End))
+            player.setFinished(true);
         move(player, nextPosition);
         return true;
     }
@@ -38,7 +40,7 @@ public class MovementLogic {
         }
     }
 
-    private static boolean isPathBlocked(Position position, Tile[][] tiles){
-        return tiles[position.getY()][position.getX()].getTileType() == TileType.Wall;
+    private static boolean isPositionOfType(Position position, Tile[][] tiles, TileType type){
+        return tiles[position.getY()][position.getX()].getTileType() == type;
     }
 }

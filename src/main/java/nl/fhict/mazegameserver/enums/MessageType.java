@@ -6,4 +6,5 @@ public enum MessageType {
     JoinedLobby,
     StartGame,
     MovementUpdate,
+    GameOver,
 }

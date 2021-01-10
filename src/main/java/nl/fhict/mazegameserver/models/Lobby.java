@@ -63,10 +63,13 @@ public class Lobby {
 
     public Message tryMovePlayer(int playerId, Direction direction){
         Player player = getPlayerById(playerId);
-        if(player == null || !isStarted){
+        if(player == null || !isStarted || player.isFinished()){
             return null;
         }
         if(MovementLogic.tryMove(player, direction, this)){
+            if(haveAllPlayersFinished()){
+                return new Message(MessageType.GameOver, tiles, players);
+            }
             return new Message(MessageType.MovementUpdate, players);
         }
         return null;
@@ -78,5 +81,9 @@ public class Lobby {
 
     private void generateWalls(){
         tiles = MapGenerator.getMap();
+    }
+
+    private boolean haveAllPlayersFinished(){
+        return !players.stream().anyMatch(player -> !player.isFinished());
     }
 }
