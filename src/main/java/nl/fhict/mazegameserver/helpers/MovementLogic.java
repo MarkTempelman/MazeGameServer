@@ -1,6 +1,7 @@
 package nl.fhict.mazegameserver.helpers;
 
 import nl.fhict.mazegameserver.enums.Direction;
+import nl.fhict.mazegameserver.enums.TileType;
 import nl.fhict.mazegameserver.models.*;
 
 public class MovementLogic {
@@ -12,7 +13,7 @@ public class MovementLogic {
     public static boolean tryMove(Player player, Direction direction, Lobby lobby){
         Position nextPosition = getNextPosition(player.getPosition(), direction);
 
-        if(isPathBlocked(nextPosition, lobby.getWalls())){
+        if(isPathBlocked(nextPosition, lobby.getTiles())){
             return false;
         }
         move(player, nextPosition);
@@ -37,7 +38,7 @@ public class MovementLogic {
         }
     }
 
-    private static boolean isPathBlocked(Position position, Wall[][] walls){
-        return walls[position.getY()][position.getX()] != null;
+    private static boolean isPathBlocked(Position position, Tile[][] tiles){
+        return tiles[position.getY()][position.getX()].getTileType() == TileType.Wall;
     }
 }

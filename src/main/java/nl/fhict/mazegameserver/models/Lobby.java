@@ -19,7 +19,7 @@ public class Lobby {
     private final int lobbyId;
 
     @Getter
-    private Wall[][] walls;
+    private Tile[][] tiles;
 
     @Getter
     private boolean isStarted = false;
@@ -41,7 +41,8 @@ public class Lobby {
     }
 
     public boolean canGameStart(){
-        return players.size() == maxPlayers && !isStarted;
+        //return players.size() == maxPlayers && !isStarted;
+        return true;
     }
 
     public void start(){
@@ -76,6 +77,6 @@ public class Lobby {
     }
 
     private void generateWalls(){
-        walls = MapGenerator.getMap();
+        tiles = MapGenerator.getMap();
     }
 }

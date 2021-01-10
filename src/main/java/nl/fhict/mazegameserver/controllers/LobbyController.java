@@ -30,7 +30,7 @@ public class LobbyController {
     public void startGame(Message messageIn){
         Lobby lobby = lobbyService.tryStartGame(messageIn.lobbyId);
         if(lobby != null){
-            messagingService.sendMessageToPlayers(new Message(MessageType.StartGame, lobby.getWalls(), lobby.getPlayers()), lobby.getPlayers());
+            messagingService.sendMessageToPlayers(new Message(MessageType.StartGame, lobby.getTiles(), lobby.getPlayers()), lobby.getPlayers());
         }
     }
 

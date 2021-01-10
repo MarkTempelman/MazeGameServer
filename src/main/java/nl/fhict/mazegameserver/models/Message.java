@@ -17,7 +17,7 @@ public class Message {
     public int lobbyId;
     public ArrayList<Player> players;
     public Player player;
-    public Wall[][] walls;
+    public Tile[][] tiles;
     public Direction direction;
 
     public Message(MessageType messageType, boolean isSuccessful, int playerId) {
@@ -37,9 +37,9 @@ public class Message {
         this.players = players;
     }
 
-    public Message(MessageType messageType, Wall[][] walls, ArrayList<Player> players) {
+    public Message(MessageType messageType, Tile[][] tiles, ArrayList<Player> players) {
         this.messageType = messageType;
-        this.walls = walls;
+        this.tiles = tiles;
         this.players = players;
     }
 

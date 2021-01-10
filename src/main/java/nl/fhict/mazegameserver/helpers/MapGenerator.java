@@ -1,16 +1,18 @@
 package nl.fhict.mazegameserver.helpers;
 
+import nl.fhict.mazegameserver.enums.TileType;
 import nl.fhict.mazegameserver.models.Position;
-import nl.fhict.mazegameserver.models.Wall;
+import nl.fhict.mazegameserver.models.Tile;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MapGenerator {
     private static final int mapWidth = 20;
     private static final int mapHeight = 20;
 
-    private static ArrayList<Wall> generateStraightWall(Position startingPosition, int length, boolean isHorizontal) {
-        ArrayList<Wall> walls = new ArrayList<>();
+    private static ArrayList<Tile> generateStraightWall(Position startingPosition, int length, boolean isHorizontal) {
+        ArrayList<Tile> tiles = new ArrayList<>();
         for (int i = 0; i < length; i++) {
             Position position;
             if (isHorizontal) {
@@ -18,31 +20,45 @@ public class MapGenerator {
             } else {
                 position = new Position(startingPosition.getX(), startingPosition.getY() + i);
             }
-            walls.add(new Wall(position));
+            tiles.add(new Tile(position, TileType.Wall));
         }
-        return walls;
+        return tiles;
     }
 
-    public static Wall[][] getMap(){
-        return generateMap();
+    public static Tile[][] getMap(){
+        ArrayList<Tile> tiles = generateWalls();
+        tiles.add(new Tile(new Position(1, 1), TileType.Start));
+        tiles.add(new Tile(new Position(18, 18), TileType.End));
+        return fillEmptySpaces(convertArrayListTo2DArray(tiles));
     }
 
-    private static Wall[][] convertArrayListTo2DArray(ArrayList<Wall> objects){
-        Wall[][] objectArray = new Wall[mapWidth][mapHeight];
-        for (Wall object: objects) {
+    private static Tile[][] convertArrayListTo2DArray(ArrayList<Tile> objects){
+        Tile[][] objectArray = new Tile[mapWidth][mapHeight];
+        for (Tile object: objects) {
             objectArray[object.getPosition().getY()][object.getPosition().getX()] = object;
         }
         return objectArray;
     }
 
-    private static Wall[][] generateMap(){
-        ArrayList<Wall> walls = new ArrayList<>();
-        walls.addAll(generateStraightWall(new Position(0, 0), 20, true));
-        walls.addAll(generateStraightWall(new Position(0, 1), 18, false));
-        walls.addAll(generateStraightWall(new Position(19, 1), 18, false));
-        walls.addAll(generateStraightWall(new Position(0, 19), 20, true));
-        walls.addAll(generateStraightWall(new Position(5, 5), 9, true));
-        walls.addAll(generateStraightWall(new Position(5, 15), 9, true));
-        return convertArrayListTo2DArray(walls);
+    private static ArrayList<Tile> generateWalls(){
+        ArrayList<Tile> tiles = new ArrayList<>();
+        tiles.addAll(generateStraightWall(new Position(0, 0), 20, true));
+        tiles.addAll(generateStraightWall(new Position(0, 1), 18, false));
+        tiles.addAll(generateStraightWall(new Position(19, 1), 18, false));
+        tiles.addAll(generateStraightWall(new Position(0, 19), 20, true));
+        tiles.addAll(generateStraightWall(new Position(5, 5), 9, true));
+        tiles.addAll(generateStraightWall(new Position(5, 15), 9, true));
+        return tiles;
+    }
+
+    private static Tile[][] fillEmptySpaces(Tile[][] map){
+        for(int row = 0; row < map.length; row++){
+            for(int col = 0; col < map[row].length; col++){
+                if(map[row][col] == null){
+                    map[row][col] = new Tile(new Position(col, row), TileType.Empty);
+                }
+            }
+        }
+        return map;
     }
 }
