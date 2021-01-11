@@ -1,4 +1,4 @@
-package nl.fhict.mazegameserver.helpers;
+package nl.fhict.mazegameserver.logic;
 
 import nl.fhict.mazegameserver.enums.Direction;
 import nl.fhict.mazegameserver.enums.TileType;

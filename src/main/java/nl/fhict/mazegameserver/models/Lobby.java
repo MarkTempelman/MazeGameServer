@@ -3,8 +3,9 @@ package nl.fhict.mazegameserver.models;
 import lombok.Getter;
 import nl.fhict.mazegameserver.enums.Direction;
 import nl.fhict.mazegameserver.enums.MessageType;
-import nl.fhict.mazegameserver.helpers.MapGenerator;
-import nl.fhict.mazegameserver.helpers.MovementLogic;
+import nl.fhict.mazegameserver.logic.MapGenerator;
+import nl.fhict.mazegameserver.logic.MovementLogic;
+import nl.fhict.mazegameserver.logic.Pathfinder;
 
 import java.util.ArrayList;
 import java.util.stream.Collectors;
@@ -68,6 +69,7 @@ public class Lobby {
         }
         if(MovementLogic.tryMove(player, direction, this)){
             if(haveAllPlayersFinished()){
+                tiles = Pathfinder.generatePath(tiles);
                 return new Message(MessageType.GameOver, tiles, players);
             }
             return new Message(MessageType.MovementUpdate, players);

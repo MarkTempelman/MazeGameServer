@@ -1,10 +1,9 @@
 package nl.fhict.mazegameserver;
 
 import nl.fhict.mazegameserver.enums.Direction;
-import nl.fhict.mazegameserver.helpers.MovementLogic;
+import nl.fhict.mazegameserver.logic.MovementLogic;
 import nl.fhict.mazegameserver.models.Lobby;
 import nl.fhict.mazegameserver.models.Player;
-import nl.fhict.mazegameserver.models.Position;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;

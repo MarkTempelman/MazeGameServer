@@ -1,10 +1,9 @@
-package nl.fhict.mazegameserver.helpers;
+package nl.fhict.mazegameserver.logic;
 
 import nl.fhict.mazegameserver.enums.TileType;
 import nl.fhict.mazegameserver.models.Position;
 import nl.fhict.mazegameserver.models.Tile;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class MapGenerator {
