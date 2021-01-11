@@ -45,8 +45,56 @@ public class MapGenerator {
         tiles.addAll(generateStraightWall(new Position(0, 1), 18, false));
         tiles.addAll(generateStraightWall(new Position(19, 1), 18, false));
         tiles.addAll(generateStraightWall(new Position(0, 19), 20, true));
-        tiles.addAll(generateStraightWall(new Position(5, 5), 9, true));
-        tiles.addAll(generateStraightWall(new Position(5, 15), 9, true));
+
+        tiles.addAll(generateStraightWall(new Position(2, 2), 4, false));
+        tiles.addAll(generateStraightWall(new Position(4, 2), 4, false));
+        tiles.addAll(generateStraightWall(new Position(8, 2), 4, false));
+        tiles.addAll(generateStraightWall(new Position(6, 1), 4, false));
+
+        tiles.addAll(generateStraightWall(new Position(2, 6), 7, true));
+
+        tiles.addAll(generateStraightWall(new Position(2, 8), 5, true));
+        tiles.addAll(generateStraightWall(new Position(2, 9), 5, true));
+
+        tiles.addAll(generateStraightWall(new Position(2, 10), 5, false));
+        tiles.addAll(generateStraightWall(new Position(4, 11), 5, false));
+        tiles.addAll(generateStraightWall(new Position(6, 10), 8, false));
+
+        tiles.addAll(generateStraightWall(new Position(2, 16), 7, true));
+
+        tiles.addAll(generateStraightWall(new Position(2, 17), 1, true));
+        tiles.addAll(generateStraightWall(new Position(4, 18), 1, true));
+        tiles.addAll(generateStraightWall(new Position(8, 18), 1, true));
+        tiles.addAll(generateStraightWall(new Position(10, 1), 1, true));
+        tiles.addAll(generateStraightWall(new Position(12, 2), 1, true));
+        tiles.addAll(generateStraightWall(new Position(18, 2), 1, true));
+        tiles.addAll(generateStraightWall(new Position(17, 4), 1, true));
+        tiles.addAll(generateStraightWall(new Position(11, 6), 1, true));
+        tiles.addAll(generateStraightWall(new Position(15, 6), 1, true));
+        tiles.addAll(generateStraightWall(new Position(12, 8), 1, true));
+        tiles.addAll(generateStraightWall(new Position(18, 8), 1, true));
+        tiles.addAll(generateStraightWall(new Position(12, 15), 1, true));
+        tiles.addAll(generateStraightWall(new Position(11, 17), 1, true));
+
+        tiles.addAll(generateStraightWall(new Position(10, 3), 5, true));
+        tiles.addAll(generateStraightWall(new Position(12, 4), 2, true));
+
+        tiles.addAll(generateStraightWall(new Position(10, 4), 6, false));
+        tiles.addAll(generateStraightWall(new Position(8, 8), 3, false));
+        tiles.addAll(generateStraightWall(new Position(13, 6), 12, false));
+
+        tiles.addAll(generateStraightWall(new Position(8, 11), 10, true));
+        tiles.addAll(generateStraightWall(new Position(15, 9), 4, true));
+
+        tiles.addAll(generateStraightWall(new Position(16, 1), 7, false));
+
+        tiles.addAll(generateStraightWall(new Position(8, 13), 4, true));
+        tiles.addAll(generateStraightWall(new Position(8, 14), 2, false));
+        tiles.addAll(generateStraightWall(new Position(10, 14), 4, false));
+
+        tiles.addAll(generateStraightWall(new Position(17, 13), 2, true));
+        tiles.addAll(generateStraightWall(new Position(15, 13), 6, false));
+        tiles.addAll(generateStraightWall(new Position(17, 15), 4, false));
         return tiles;
     }
 
