@@ -3,11 +3,13 @@ package nl.fhict.mazegameserver.models;
 import lombok.Getter;
 import nl.fhict.mazegameserver.enums.Direction;
 import nl.fhict.mazegameserver.enums.MessageType;
+import nl.fhict.mazegameserver.enums.TileType;
 import nl.fhict.mazegameserver.logic.MapGenerator;
 import nl.fhict.mazegameserver.logic.MovementLogic;
 import nl.fhict.mazegameserver.logic.Pathfinder;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.stream.Collectors;
 
 public class Lobby {
@@ -70,7 +72,7 @@ public class Lobby {
         if(MovementLogic.tryMove(player, direction, this)){
             if(haveAllPlayersFinished()){
                 tiles = Pathfinder.generatePath(tiles);
-                return new Message(MessageType.GameOver, tiles, players);
+                return new Message(MessageType.GameOver, tiles, players, getShortestRouteLength());
             }
             return new Message(MessageType.MovementUpdate, players);
         }
@@ -87,5 +89,9 @@ public class Lobby {
 
     private boolean haveAllPlayersFinished(){
         return !players.stream().anyMatch(player -> !player.isFinished());
+    }
+
+    private int getShortestRouteLength(){
+        return Arrays.stream(tiles).flatMap(Arrays::stream).filter(tile -> tile.getTileType() == TileType.Path).collect(Collectors.summingInt(a -> 1));
     }
 }

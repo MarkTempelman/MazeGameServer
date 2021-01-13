@@ -20,6 +20,8 @@ public class Player implements Cloneable{
     private Position position;
     @Getter @Setter
     private boolean isFinished = false;
+    @Getter @Setter
+    private int distanceTraveled = 0;
 
     public Player(String username, String password){
         this.username = username;

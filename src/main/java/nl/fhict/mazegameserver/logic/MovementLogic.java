@@ -19,6 +19,7 @@ public class MovementLogic {
         if(isPositionOfType(nextPosition, lobby.getTiles(), TileType.End))
             player.setFinished(true);
         move(player, nextPosition);
+        player.setDistanceTraveled(player.getDistanceTraveled() + 1);
         return true;
     }
 

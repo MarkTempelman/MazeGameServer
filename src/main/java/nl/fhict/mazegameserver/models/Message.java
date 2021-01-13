@@ -19,6 +19,7 @@ public class Message {
     public Player player;
     public Tile[][] tiles;
     public Direction direction;
+    public int shortestRouteLength;
 
     public Message(MessageType messageType, boolean isSuccessful, int playerId) {
         this.isSuccessful = isSuccessful;
@@ -41,6 +42,13 @@ public class Message {
         this.messageType = messageType;
         this.tiles = tiles;
         this.players = players;
+    }
+
+    public Message(MessageType messageType, Tile[][] tiles, ArrayList<Player> players, int shortestRouteLength) {
+        this.messageType = messageType;
+        this.tiles = tiles;
+        this.players = players;
+        this.shortestRouteLength = shortestRouteLength;
     }
 
     public Message(MessageType messageType, ArrayList<Player> players) {
