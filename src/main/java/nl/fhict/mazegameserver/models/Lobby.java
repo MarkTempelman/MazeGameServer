@@ -10,6 +10,7 @@ import nl.fhict.mazegameserver.logic.Pathfinder;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Comparator;
 import java.util.stream.Collectors;
 
 public class Lobby {
@@ -72,7 +73,7 @@ public class Lobby {
         if(MovementLogic.tryMove(player, direction, this)){
             if(haveAllPlayersFinished()){
                 tiles = Pathfinder.generatePath(tiles);
-                return new Message(MessageType.GameOver, tiles, players, getShortestRouteLength());
+                return new Message(MessageType.GameOver, tiles, players, getShortestRouteLength(), getWinner());
             }
             return new Message(MessageType.MovementUpdate, players);
         }
@@ -93,5 +94,9 @@ public class Lobby {
 
     private int getShortestRouteLength(){
         return Arrays.stream(tiles).flatMap(Arrays::stream).filter(tile -> tile.getTileType() == TileType.Path).collect(Collectors.summingInt(a -> 1));
+    }
+
+    private Player getWinner(){
+        return players.stream().min(Comparator.comparing(Player::getDistanceTraveled)).orElse(null);
     }
 }

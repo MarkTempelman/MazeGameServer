@@ -44,11 +44,12 @@ public class Message {
         this.players = players;
     }
 
-    public Message(MessageType messageType, Tile[][] tiles, ArrayList<Player> players, int shortestRouteLength) {
+    public Message(MessageType messageType, Tile[][] tiles, ArrayList<Player> players, int shortestRouteLength, Player player) {
         this.messageType = messageType;
         this.tiles = tiles;
         this.players = players;
         this.shortestRouteLength = shortestRouteLength;
+        this.player = player;
     }
 
     public Message(MessageType messageType, ArrayList<Player> players) {
