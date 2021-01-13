@@ -10,7 +10,7 @@ public class MapGenerator {
     private static final int mapWidth = 20;
     private static final int mapHeight = 20;
 
-    private static ArrayList<Tile> generateStraightWall(Position startingPosition, int length, boolean isHorizontal) {
+    public static ArrayList<Tile> generateStraightWall(Position startingPosition, int length, boolean isHorizontal) {
         ArrayList<Tile> tiles = new ArrayList<>();
         for (int i = 0; i < length; i++) {
             Position position;
@@ -31,7 +31,7 @@ public class MapGenerator {
         return fillEmptySpaces(convertArrayListTo2DArray(tiles));
     }
 
-    private static Tile[][] convertArrayListTo2DArray(ArrayList<Tile> objects){
+    public static Tile[][] convertArrayListTo2DArray(ArrayList<Tile> objects){
         Tile[][] objectArray = new Tile[mapWidth][mapHeight];
         for (Tile object: objects) {
             objectArray[object.getPosition().getY()][object.getPosition().getX()] = object;
@@ -39,7 +39,18 @@ public class MapGenerator {
         return objectArray;
     }
 
-    private static ArrayList<Tile> generateWalls(){
+    public static Tile[][] fillEmptySpaces(Tile[][] map){
+        for(int row = 0; row < map.length; row++){
+            for(int col = 0; col < map[row].length; col++){
+                if(map[row][col] == null){
+                    map[row][col] = new Tile(new Position(col, row), TileType.Empty);
+                }
+            }
+        }
+        return map;
+    }
+
+    public static ArrayList<Tile> generateWalls(){
         ArrayList<Tile> tiles = new ArrayList<>();
         tiles.addAll(generateStraightWall(new Position(0, 0), 20, true));
         tiles.addAll(generateStraightWall(new Position(0, 1), 18, false));
@@ -96,16 +107,5 @@ public class MapGenerator {
         tiles.addAll(generateStraightWall(new Position(15, 13), 6, false));
         tiles.addAll(generateStraightWall(new Position(17, 15), 4, false));
         return tiles;
-    }
-
-    private static Tile[][] fillEmptySpaces(Tile[][] map){
-        for(int row = 0; row < map.length; row++){
-            for(int col = 0; col < map[row].length; col++){
-                if(map[row][col] == null){
-                    map[row][col] = new Tile(new Position(col, row), TileType.Empty);
-                }
-            }
-        }
-        return map;
     }
 }
