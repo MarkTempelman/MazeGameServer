@@ -25,4 +25,13 @@ public class PlayerController {
         Message messageOut = new Message(MessageType.LoginResponse, isSuccessful, player.getId());
         template.convertAndSend(messagePrefix + messageIn.sender, messageOut);
     }
+
+    @MessageMapping("/register")
+    public void register(Message messageIn){
+        Player player = new Player(messageIn.username, messageIn.password);
+        playerService.registerPlayer(player);
+        boolean isSuccessful = playerService.attemptLogin(player);
+        Message messageOut = new Message(MessageType.LoginResponse, isSuccessful, player.getId());
+        template.convertAndSend(messagePrefix + messageIn.sender, messageOut);
+    }
 }
